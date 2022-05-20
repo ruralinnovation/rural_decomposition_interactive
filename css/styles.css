@@ -1,0 +1,22 @@
+body {
+    background-color: #FBF8E9;
+}
+
+.svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    vertical-align: top;
+    overflow: hidden;
+}
+.svg-content {
+    display: inline-block;
+}
+
+#content {
+    margin: 0 auto;
+    width: 85%;
+    height: auto;
+    position: relative;
+    background-color: #FFFFF9;
+}
