@@ -1,5 +1,5 @@
 body {
-    background-color: #FBF8E9;
+    background-color: #FFFFF9;
     font-family: Montserrat;
 }
 
@@ -24,6 +24,9 @@ body {
 
 #container {
     margin-top: 15px;
+    border: 1px solid #d0d2ce;
+    border-radius: 10px;
+    height: 47vw;
 }
 
 #content h1,
