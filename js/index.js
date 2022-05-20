@@ -3,9 +3,48 @@
 //     .on('active', function(i){ console.log(i + 'th section active') })
 
 
-let map_width = 850;
+let map_width = 900;
 let map_height = 500
-let margin = ({ top: 0, right: 10, bottom: 10, left: 0 });
+let margin = ({ top: 0, right: 0, bottom: 0, left: 0 });
+
+let show_metro_fringe = true;
+let show_open_lands = true;
+let show_small_towns = true;
+
+let dot_opacity = .7;
+
+function update_metro_fringe_checkbox() {
+  if (d3.select("#metro-fringe").property("checked")) {
+    d3.selectAll(".metro-fringe-dots")
+      .transition()
+      .duration(1500)
+      .style("opacity", dot_opacity);
+  } else {
+    d3.selectAll(".metro-fringe-dots").transition().duration(1500).style("opacity", 0);
+  }
+}
+
+function update_open_lands_checkbox() {
+  if (d3.select("#open-lands").property("checked")) {
+    d3.selectAll(".open-lands-dots")
+      .transition()
+      .duration(1500)
+      .style("opacity", dot_opacity);
+  } else {
+    d3.selectAll(".open-lands-dots").transition().duration(1500).style("opacity", 0);
+  }
+}
+
+function update_small_towns_checkbox() {
+  if (d3.select("#small-towns").property("checked")) {
+    d3.selectAll(".small-towns-dots")
+      .transition()
+      .duration(1500)
+      .style("opacity", dot_opacity);
+  } else {
+    d3.selectAll(".small-towns-dots").transition().duration(1500).style("opacity", 0);
+  }
+}
 
 function render() {
 
@@ -27,8 +66,10 @@ function render() {
     let counties = topojson.feature(files[1], files[1].objects.counties).features;
     let states = topojson.feature(files[1], files[1].objects.states).features;
 
+    let metro_fringe = files[0].filter(function(d) { return d.variable == "rural_in_metro"; });
+    let open_lands = files[0].filter(function(d) { return d.variable == "rural_in_nonmetro"; });
+    let small_towns = files[0].filter(function(d) { return d.variable == "urban_in_nonmetro"; });
 
-    let dta = files[0];
     let svg = d3
       .select("#container")
       .attr("class", "svg-container")
@@ -58,15 +99,18 @@ function render() {
       .data(states)
       .enter()
       .append("path")
+      .attr("class", "states")
       .attr("d", path)
       .attr("fill", "none")
       .attr("stroke", "#d0d2ce")
-      .attr("stroke-width", "1px");
+      .attr("stroke-width", "1px")
+      .attr("stroke-opacity", 1);
 
     g.selectAll(".dots")
-      .data(dta)
+      .data(metro_fringe)
       .enter()
       .append("circle")
+      .attr("class", "metro-fringe-dots")
       .attr("cx", function (d) {
         if (projection([+d["lon"], +d["lat"]]) == null) {
           return;
@@ -80,30 +124,65 @@ function render() {
         return projection([+d["lon"], +d["lat"]])[1];
       })
       .attr("r", 0.7)
-      .attr("fill", function(d) {
-        if (d.variable == "rural_in_metro") {
-          return "#259299";
-        }
-
-        if (d.variable == "rural_in_nonmetro") {
-          return "#BA578C";
-        }
-
-        return "#3F8EE6";
-      })
+      .attr("fill", "#259299")
       .attr("stroke", "pink")
       .attr("opacity", 0.7)
       .attr("stroke-width", 0.0);
 
-    // Title
-    g.append("text")
-      .style("font-family", "Montserrat")
-      .style("font-size", "18px")
-      .style("font-weight", 500)
-      .text("Open lands")
-      .attr("text-anchor", "middle")
-      .attr("x", map_width / 2)
-      .attr("y", 40);
+    g.selectAll(".dots")
+      .data(open_lands)
+      .enter()
+      .append("circle")
+      .attr("class", "open-lands-dots")
+      .attr("cx", function (d) {
+        if (projection([+d["lon"], +d["lat"]]) == null) {
+          return;
+        }
+        return projection([+d["lon"], +d["lat"]])[0];
+      })
+      .attr("cy", function (d) {
+        if (projection([+d["lon"], +d["lat"]]) == null) {
+          return;
+        }
+        return projection([+d["lon"], +d["lat"]])[1];
+      })
+      .attr("r", 0.7)
+      .attr("fill", "#BA578C")
+      .attr("stroke", "pink")
+      .attr("opacity", 0.7)
+      .attr("stroke-width", 0.0);
+
+    g.selectAll(".dots")
+      .data(small_towns)
+      .enter()
+      .append("circle")
+      .attr("class", "small-towns-dots")
+      .attr("cx", function (d) {
+        if (projection([+d["lon"], +d["lat"]]) == null) {
+          return;
+        }
+        return projection([+d["lon"], +d["lat"]])[0];
+      })
+      .attr("cy", function (d) {
+        if (projection([+d["lon"], +d["lat"]]) == null) {
+          return;
+        }
+        return projection([+d["lon"], +d["lat"]])[1];
+      })
+      .attr("r", 0.7)
+      .attr("fill", "#3F8EE6")
+      .attr("stroke", "pink")
+      .attr("opacity", 0.7)
+      .attr("stroke-width", 0.0);
+
+    d3.select("#metro-fringe").on("change", update_metro_fringe_checkbox);
+    d3.select("#open-lands").on("change", update_open_lands_checkbox);
+    d3.select("#small-towns").on("change", update_small_towns_checkbox);
+
+    // d3.selectAll(".dots")
+    //   .transition()
+    //   .duration(7500)
+    //   .style("opacity", 0.7);
 
     // function zoomed(event) {
     //   const { transform } = event;

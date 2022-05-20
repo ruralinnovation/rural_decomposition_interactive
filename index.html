@@ -25,8 +25,26 @@
 
 <body>
   <div id="content">
-    <div id = "container" data-zoom-on-wheel
-     data-pan-on-drag>
+    <h1>Rural definition decomposition</h1>
+    <h2>One dot equals 1,000 people</h2>
+    <div class = "checkbox-container">
+      <label class="container">
+        <input id="metro-fringe" type="checkbox" checked="checked">
+        <span class="checkmark"></span>Metro fringe
+      </label>
+      <label class="container">
+        <input id="open-lands" type="checkbox" checked="checked">
+        <span class="checkmark"></span>Open lands
+      </label>
+      <label class="container">
+        <input id = "small-towns" type="checkbox" checked="checked">
+        <span class="checkmark"></span>Small towns
+      </label>
+      <div id = "container"
+        data-zoom-on-wheel
+        data-pan-on-drag
+      >
+      </div>
     </div>
   </div>
   <script src="https://unpkg.com/topojson@3"></script>

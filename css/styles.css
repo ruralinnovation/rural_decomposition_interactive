@@ -1,5 +1,6 @@
 body {
     background-color: #FBF8E9;
+    font-family: Montserrat;
 }
 
 .svg-container {
@@ -19,4 +20,18 @@ body {
     height: auto;
     position: relative;
     background-color: #FFFFF9;
+}
+
+#container {
+    margin-top: 15px;
+}
+
+#content h1,
+#content h2 {
+    font-family: Montserrat;
+    margin: 5px 0px 2.5px 0px;
+}
+
+#content h2 {
+    font-weight: 500;
 }
