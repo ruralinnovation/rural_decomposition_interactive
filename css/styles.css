@@ -38,3 +38,32 @@ body {
 #content h2 {
     font-weight: 500;
 }
+
+input[type=checkbox] {
+    transform: scale(1.3);
+}
+
+.checkbox-container {
+    margin: 10px 0px 0px 0px;
+}
+
+.container {
+    font-size: 1.2em;
+    margin:  0px 10px 0px 0px;
+}
+
+#metro-fringe {
+    accent-color: #259299;
+}
+
+#open-lands {
+    accent-color: #BA578C;
+}
+
+#small-towns {
+    accent-color: #3F8EE6;
+}
+
+#metro-counties {
+    accent-color: #d0d2ce;
+}

@@ -46,6 +46,17 @@ function update_small_towns_checkbox() {
   }
 }
 
+function update_metro_counties_checkbox() {
+  if (d3.select("#metro-counties").property("checked")) {
+    d3.selectAll(".counties")
+      .transition()
+      .duration(0)
+      .style("opacity", 1);
+  } else {
+    d3.selectAll(".counties").transition().duration(0).style("opacity", 0);
+  }
+}
+
 function render() {
 
   let projection = d3
@@ -87,6 +98,7 @@ function render() {
       .data(counties)
       .enter()
       .append("path")
+      .attr("class", "counties")
       .attr("d", path)
       .attr("fill", "#d0d2ce")
       .attr("stroke-width", "0px")
@@ -101,7 +113,7 @@ function render() {
       .attr("class", "states")
       .attr("d", path)
       .attr("fill", "none")
-      .attr("stroke", "#d0d2ce")
+      .attr("stroke", "#8e8e8e")
       .attr("stroke-width", "1px")
       .attr("stroke-opacity", 1);
 
@@ -177,6 +189,7 @@ function render() {
     d3.select("#metro-fringe").on("change", update_metro_fringe_checkbox);
     d3.select("#open-lands").on("change", update_open_lands_checkbox);
     d3.select("#small-towns").on("change", update_small_towns_checkbox);
+    d3.select("#metro-counties").on("change", update_metro_counties_checkbox);
 
     // d3.selectAll(".dots")
     //   .transition()
