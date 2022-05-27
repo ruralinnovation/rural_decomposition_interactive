@@ -20,7 +20,7 @@ function update_metro_fringe_checkbox() {
       .duration(0)
       .style("opacity", dot_opacity);
   } else {
-    d3.selectAll(".metro-fringe-dots").transition().duration(0).style("opacity", 0);
+    d3.selectAll(".metro-fringe-dots").style("opacity", 0);
   }
 }
 
@@ -31,7 +31,7 @@ function update_open_lands_checkbox() {
       .duration(0)
       .style("opacity", dot_opacity);
   } else {
-    d3.selectAll(".open-lands-dots").transition().duration(0).style("opacity", 0);
+    d3.selectAll(".open-lands-dots").style("opacity", 0);
   }
 }
 
@@ -42,7 +42,7 @@ function update_small_towns_checkbox() {
       .duration(0)
       .style("opacity", dot_opacity);
   } else {
-    d3.selectAll(".small-towns-dots").transition().duration(0).style("opacity", 0);
+    d3.selectAll(".small-towns-dots").style("opacity", 0);
   }
 }
 
@@ -53,7 +53,7 @@ function update_metro_counties_checkbox() {
       .duration(0)
       .style("opacity", 1);
   } else {
-    d3.selectAll(".counties").transition().duration(0).style("opacity", 0);
+    d3.selectAll(".counties").style("opacity", 0);
   }
 }
 
@@ -191,26 +191,18 @@ function render() {
     d3.select("#small-towns").on("change", update_small_towns_checkbox);
     d3.select("#metro-counties").on("change", update_metro_counties_checkbox);
 
-    // d3.selectAll(".dots")
-    //   .transition()
-    //   .duration(7500)
-    //   .style("opacity", 0.7);
-
-    // function zoomed(event) {
-    //   const { transform } = event;
-    //   g.attr("transform", transform);
-    //   g.attr("stroke-width", 1 / transform.k);
-    // }
-
-    // const zoom = d3.zoom().scaleExtent([1, 8]).on("zoom", zoomed);
-
-    // svg.call(zoom);
-
   }).catch(function(err) {
       // handle error here
   })
 }
 
 render()
-// d3.select(window).on('resize', render)
+
+d3.selectAll('input[type="checkbox"]')
+  .on("keypress", function(d) {
+    if (+d.which === 13) {
+      //this.checked = !this.checked;
+      $(this).click();
+    }
+  })
 
