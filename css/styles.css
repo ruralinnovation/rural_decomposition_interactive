@@ -50,6 +50,7 @@ input[type=checkbox] {
 .container {
     font-size: 1.2em;
     margin:  0px 10px 0px 0px;
+    white-space: nowrap;
 }
 
 #metro-fringe {
