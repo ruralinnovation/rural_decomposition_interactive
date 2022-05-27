@@ -137,7 +137,7 @@ function render() {
       .attr("r", 0.7)
       .attr("fill", "#259299")
       .attr("stroke", "pink")
-      .attr("opacity", 0.7)
+      .attr("opacity", dot_opacity)
       .attr("stroke-width", 0.0);
 
     g.selectAll(".dots")
@@ -160,7 +160,7 @@ function render() {
       .attr("r", 0.7)
       .attr("fill", "#BA578C")
       .attr("stroke", "pink")
-      .attr("opacity", 0.7)
+      .attr("opacity", dot_opacity)
       .attr("stroke-width", 0.0);
 
     g.selectAll(".dots")
@@ -183,7 +183,7 @@ function render() {
       .attr("r", 0.7)
       .attr("fill", "#3F8EE6")
       .attr("stroke", "pink")
-      .attr("opacity", 0.7)
+      .attr("opacity", dot_opacity)
       .attr("stroke-width", 0.0);
 
     d3.select("#metro-fringe").on("change", update_metro_fringe_checkbox);
