@@ -17,10 +17,10 @@ function update_metro_fringe_checkbox() {
   if (d3.select("#metro-fringe").property("checked")) {
     d3.selectAll(".metro-fringe-dots")
       .transition()
-      .duration(1500)
+      .duration(0)
       .style("opacity", dot_opacity);
   } else {
-    d3.selectAll(".metro-fringe-dots").transition().duration(1500).style("opacity", 0);
+    d3.selectAll(".metro-fringe-dots").transition().duration(0).style("opacity", 0);
   }
 }
 
@@ -28,10 +28,10 @@ function update_open_lands_checkbox() {
   if (d3.select("#open-lands").property("checked")) {
     d3.selectAll(".open-lands-dots")
       .transition()
-      .duration(1500)
+      .duration(0)
       .style("opacity", dot_opacity);
   } else {
-    d3.selectAll(".open-lands-dots").transition().duration(1500).style("opacity", 0);
+    d3.selectAll(".open-lands-dots").transition().duration(0).style("opacity", 0);
   }
 }
 
@@ -39,10 +39,10 @@ function update_small_towns_checkbox() {
   if (d3.select("#small-towns").property("checked")) {
     d3.selectAll(".small-towns-dots")
       .transition()
-      .duration(1500)
+      .duration(0)
       .style("opacity", dot_opacity);
   } else {
-    d3.selectAll(".small-towns-dots").transition().duration(1500).style("opacity", 0);
+    d3.selectAll(".small-towns-dots").transition().duration(0).style("opacity", 0);
   }
 }
 
@@ -59,16 +59,16 @@ function render() {
     let path = d3.geoPath().projection(projection);
 
   Promise.all([
-    d3.csv("data/tot_pop_dots.csv"),
-    d3.json("data/counties-10m.json"),
+    d3.csv("data/tot_pop_dots_simplified.csv"),
+    d3.json("data/counties-10m-simplified-10-metro.json"),
   ]).then(function(files) {
       
     let counties = topojson.feature(files[1], files[1].objects.counties).features;
     let states = topojson.feature(files[1], files[1].objects.states).features;
 
-    let metro_fringe = files[0].filter(function(d) { return d.variable == "rural_in_metro"; });
-    let open_lands = files[0].filter(function(d) { return d.variable == "rural_in_nonmetro"; });
-    let small_towns = files[0].filter(function(d) { return d.variable == "urban_in_nonmetro"; });
+    let metro_fringe = files[0].filter(function(d) { return +d.variable == 1; });
+    let open_lands = files[0].filter(function(d) { return +d.variable == 2; });
+    let small_towns = files[0].filter(function(d) { return +d.variable == 3; });
 
     let svg = d3
       .select("#container")
@@ -80,7 +80,6 @@ function render() {
           .append("g")
             .attr("transform", 
                   "translate(" + margin.left + "," + margin.top + ")");
-      //.style("background-color", "white");
 
     const g = svg.append("g");
 
@@ -89,7 +88,7 @@ function render() {
       .enter()
       .append("path")
       .attr("d", path)
-      .attr("fill", "none")
+      .attr("fill", "#d0d2ce")
       .attr("stroke-width", "0px")
       .attr("stroke", function (d) {
         return "white";
