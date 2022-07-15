@@ -68,3 +68,11 @@ input[type=checkbox] {
 #metro-counties {
     accent-color: #d0d2ce;
 }
+
+.footnote {
+    color: #8e8e8e;
+}
+
+.tagline {
+    text-align: right;
+}
