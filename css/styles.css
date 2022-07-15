@@ -39,6 +39,19 @@ body {
     font-weight: 400;
 }
 
+h1 {
+    font-size: 16pt;
+}
+
+h2 {
+    font-size: 12pt;
+}
+
+p {
+    font-size: 12pt;
+}
+
+
 input[type=checkbox] {
     transform: scale(1.3);
 }
