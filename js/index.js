@@ -3,7 +3,7 @@
 //     .on('active', function(i){ console.log(i + 'th section active') })
 
 
-let map_width = 900;
+let map_width = 950;
 let map_height = 500
 let margin = ({ top: 0, right: 0, bottom: 0, left: 0 });
 
