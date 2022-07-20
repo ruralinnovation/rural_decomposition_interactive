@@ -57,6 +57,17 @@ function update_metro_counties_checkbox() {
   }
 }
 
+function update_native_lands_checkbox() {
+  if (d3.select("#native-lands").property("checked")) {
+    d3.selectAll(".native_lands")
+      .transition()
+      .duration(0)
+      .style("opacity", .8);
+  } else {
+    d3.selectAll(".native_lands").style("opacity", 0);
+  }
+}
+
 function render() {
 
   let projection = d3
@@ -72,6 +83,7 @@ function render() {
   Promise.all([
     d3.csv("data/tot_pop_dots_simplified.csv"),
     d3.json("data/counties-10m-simplified-10-metro.json"),
+    d3.json("data-raw/tl_2019_us_aiannh.json"),
   ]).then(function(files) {
       
     let counties = topojson.feature(files[1], files[1].objects.counties).features;
@@ -80,6 +92,8 @@ function render() {
     let metro_fringe = files[0].filter(function(d) { return +d.variable == 1; });
     let open_lands = files[0].filter(function(d) { return +d.variable == 2; });
     let small_towns = files[0].filter(function(d) { return +d.variable == 3; });
+
+    let native_lands = topojson.feature(files[2], files[2].objects.tl_2019_us_aiannh).features;
 
     let svg = d3
       .select("#container")
@@ -105,6 +119,19 @@ function render() {
       .attr("stroke", function (d) {
         return "white";
       });
+
+    g.selectAll(".native_lands")
+      .data(native_lands)
+      .enter()
+      .append("path")
+      .attr("class", "native_lands")
+      .attr("d", path)
+      .attr("fill", "#FEECBB")
+      .attr("stroke-width", "0px")
+      .attr("stroke", function (d) {
+        return "white";
+      })
+      .style("opacity", .8);
 
     g.selectAll(".states")
       .data(states)
@@ -190,6 +217,7 @@ function render() {
     d3.select("#open-lands").on("change", update_open_lands_checkbox);
     d3.select("#small-towns").on("change", update_small_towns_checkbox);
     d3.select("#metro-counties").on("change", update_metro_counties_checkbox);
+    d3.select("#native-lands").on("change", update_native_lands_checkbox);
 
   }).catch(function(err) {
       // handle error here
