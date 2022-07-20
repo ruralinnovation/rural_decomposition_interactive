@@ -83,7 +83,7 @@ function render() {
   Promise.all([
     d3.csv("data/tot_pop_dots_simplified.csv"),
     d3.json("data/counties-10m-simplified-10-metro.json"),
-    d3.json("data-raw/tl_2019_us_aiannh.json"),
+    d3.json("data/tl_2019_us_aiannh_simplified_2.0.json"),
   ]).then(function(files) {
       
     let counties = topojson.feature(files[1], files[1].objects.counties).features;
