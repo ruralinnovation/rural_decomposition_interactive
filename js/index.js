@@ -1,7 +1,3 @@
-// d3.graphScroll()
-//     .sections(d3.selectAll('#sections > div'))
-//     .on('active', function(i){ console.log(i + 'th section active') })
-
 
 let map_width = 950;
 let map_height = 500
@@ -229,7 +225,6 @@ render()
 d3.selectAll('input[type="checkbox"]')
   .on("keypress", function(d) {
     if (+d.which === 13) {
-      //this.checked = !this.checked;
       $(this).click();
     }
   })

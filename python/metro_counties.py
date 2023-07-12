@@ -2,8 +2,6 @@ import json
 import numpy as np
 import pandas as pd
 
-print('running')
-
 with open('../data-raw/counties-10m-simplified-10.json', 'r') as f:
     data = json.load(f)
 
